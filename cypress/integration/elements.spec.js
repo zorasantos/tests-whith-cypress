@@ -2,7 +2,8 @@
 
 describe('Working with basic elements', () => {
   before(() => {
-    cy.visit('http://localhost:8080')
+    // cy.visit('http://localhost:8080')
+    cy.visit('https://wcaquino.me/cypress/componentes.html')
   })
 
   // beforeEach(() => {
@@ -29,7 +30,7 @@ describe('Working with basic elements', () => {
       .should('have.value', 'testcypress@gmail.com')
   })
 
-  it.only('RadioButton', () => {
+  it('RadioButton', () => {
     cy.get('.menu > [href="/cadastro"]').click()
     cy.get('.v-input--radio-group__input > :nth-child(1) > .v-input--selection-controls__input > .v-input--selection-controls__ripple')
       .click()
@@ -37,5 +38,15 @@ describe('Working with basic elements', () => {
 
     cy.get(':nth-child(2) > .v-input--selection-controls__input > .v-input--selection-controls__ripple')
       .should('not.be.checked')
+  })
+
+  it.only('Checkbox', () => {
+    cy.get('#formComidaPizza')
+      .click()
+      .should('be.checked')
+
+    cy.get('[name=formComidaFavorita]').click({ multiple: true })
+    cy.get('#formComidaPizza').should('not.be.checked')
+    cy.get('#formComidaVegetariana').should('be.checked')
   })
 })
