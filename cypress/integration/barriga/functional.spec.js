@@ -33,9 +33,16 @@ describe('Should test at afunctional level', () => {
     cy.get(loc.MOVIMENTACAO.DESCRICAO).type('Descrição')
     cy.get(loc.MOVIMENTACAO.VALOR).type('123')
     cy.get(loc.MOVIMENTACAO.INTERESSADO).type('Interessado')
+    cy.get(loc.MOVIMENTACAO.CONTA).select('Conta Teste Alterada[2]')
+    cy.get(loc.MOVIMENTACAO.STATUS).click()
     cy.get(loc.MOVIMENTACAO.BTN_SALVAR).click()
     cy.get(loc.MESSAGE).should('contain', 'Movimentação inserida com sucesso')
 
     cy.get(loc.EXTRATO.LINHAS).should('have.length', 7)
+  })
+
+  it('Should get balance', () => {
+    cy.get(loc.MENU.HOME).click()
+    cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta Teste Alterada[2]')).should('123,00')
   })
 })
